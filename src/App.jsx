@@ -243,6 +243,13 @@ const months = [
 ]
 
 const getInitialDate = () => ({ day: '', month: '', year: '' })
+const socialMediaLinks = [
+  { name: 'Website', url: 'https://newlifeag.in/' },
+  { name: 'App', url: 'https://app.newlifeag.in/' },
+  { name: 'Facebook', url: 'https://www.facebook.com/@newlifeaghyd/' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@NEWLIFEAGHYD' },
+  { name: 'LinkedIn', url: 'https://in.linkedin.com/company/new-life-ag-church' },
+]
 
 function App() {
   const currentYear = new Date().getFullYear()
@@ -866,6 +873,26 @@ function App() {
           <h2 className="animated-thankyou">Thank You</h2>
           <p className="thankyou-note">We are blessed to have you as part of our church family.</p>
         </footer>
+
+        <section className="social-qr-section">
+          <h3>Connect With New Life AG (Scan QR Codes)</h3>
+          <p className="helper-text">Scan any code to open the official online pages and social channels.</p>
+          <div className="social-qr-grid">
+            {socialMediaLinks.map((item) => (
+              <article key={item.name} className="qr-card">
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(item.url)}`}
+                  alt={`${item.name} QR Code`}
+                  loading="lazy"
+                />
+                <h4>{item.name}</h4>
+                <a href={item.url} target="_blank" rel="noreferrer">
+                  Open {item.name}
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
       </form>
     </main>
   )
