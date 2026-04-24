@@ -1,0 +1,180 @@
+.app-shell {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.membership-form {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(7, 27, 64, 0.25);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-header h1 {
+  margin: 0;
+  color: #0d2b66;
+}
+
+.subtitle {
+  margin: 0.5rem auto 0.75rem;
+  max-width: 700px;
+  color: #28426f;
+}
+
+.form-header h2 {
+  color: #12346f;
+}
+
+.form-section {
+  border: 1px solid #d6e2f5;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: #f8fbff;
+}
+
+.form-section h3,
+.form-section h4 {
+  margin-top: 0;
+  color: #0f2c63;
+}
+
+.grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: 600;
+  color: #183462;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #a8bddf;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  box-sizing: border-box;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.required {
+  color: #c21807;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(90px, 1fr));
+  gap: 0.5rem;
+}
+
+.inline-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.inline-options label,
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.inline-options input,
+.checkbox-item input {
+  width: auto;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+}
+
+.helper-text,
+small {
+  margin: 0.2rem 0 0;
+  color: #335488;
+}
+
+.family-count {
+  max-width: 260px;
+}
+
+.family-block {
+  border: 1px dashed #9db3d8;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-top: 0.8rem;
+  background: #ffffff;
+}
+
+.submit-btn {
+  margin-top: 1.25rem;
+  background: #0f3b88;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #0a2f6f;
+}
+
+.error {
+  color: #c21807;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.success {
+  color: #0f6b32;
+  font-weight: 700;
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  .membership-form {
+    padding: 1rem;
+  }
+
+  .date-grid {
+    grid-template-columns: 1fr;
+  }
+}
