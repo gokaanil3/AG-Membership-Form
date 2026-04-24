@@ -453,6 +453,14 @@ function App() {
   return (
     <main className="app-shell">
       <form className="membership-form" onSubmit={handleSubmit}>
+        <section className="welcome-banner">
+          <p className="welcome-kicker">Faith • Hope • Love</p>
+          <h1 className="animated-title">Welcome, we are glad you are here</h1>
+          <p className="welcome-subtext">
+            "For where two or three gather in My name, there am I with them." - Matthew 18:20
+          </p>
+        </section>
+
         <header className="form-header">
           <h1>Online Membership Form</h1>
           <p className="subtitle">
@@ -852,6 +860,12 @@ function App() {
           Submit
         </button>
         {successMessage ? <p className="success">{successMessage}</p> : null}
+
+        <footer className="thankyou-banner">
+          <p className="cross-line">✝ Jesus Loves You ✝</p>
+          <h2 className="animated-thankyou">Thank You</h2>
+          <p className="thankyou-note">We are blessed to have you as part of our church family.</p>
+        </footer>
       </form>
     </main>
   )
