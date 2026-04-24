@@ -923,17 +923,22 @@ function App() {
           <p className="helper-text">Scan any code to open the official online pages and social channels.</p>
           <div className="social-qr-grid">
             {socialMediaLinks.map((item) => (
-              <article key={item.name} className="qr-card">
+              <a
+              key={item.name}
+              className="qr-card-link"
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <article className="qr-card">
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(item.url)}`}
                   alt={`${item.name} QR Code`}
                   loading="lazy"
                 />
                 <h4>{item.name}</h4>
-                <a href={item.url} target="_blank" rel="noreferrer">
-                  Open {item.name}
-                </a>
               </article>
+            </a>
             ))}
           </div>
         </section>

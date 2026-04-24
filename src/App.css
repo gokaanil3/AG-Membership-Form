@@ -255,12 +255,23 @@ small {
   gap: 0.8rem;
 }
 
+.qr-card-link {
+  display: block;
+  text-decoration: none;
+}
+
 .qr-card {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 10px;
   padding: 0.7rem;
   text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qr-card-link:hover .qr-card {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.14);
 }
 
 .qr-card img {
@@ -275,16 +286,6 @@ small {
 .qr-card h4 {
   margin: 0.5rem 0 0.3rem;
   color: #ffe68b;
-}
-
-.qr-card a {
-  color: #cbecff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.qr-card a:hover {
-  text-decoration: underline;
 }
 
 @keyframes textShine {
