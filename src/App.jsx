@@ -919,8 +919,8 @@ function App() {
         </footer>
 
         <section className="social-qr-section">
-          <h3>Connect With New Life AG (Scan QR Codes)</h3>
-          <p className="helper-text">Scan any code to open the official online pages and social channels.</p>
+          <h3>Connect With New Life AG</h3>
+          <p className="scan-instruction">Click or scan any code below to open the official pages and social channels.</p>
           <div className="social-qr-grid">
             {socialMediaLinks.map((item) => (
               <a
