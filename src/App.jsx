@@ -300,6 +300,11 @@ function App() {
   })
   const [errors, setErrors] = useState({})
   const [successMessage, setSuccessMessage] = useState('')
+  const [submissionError, setSubmissionError] = useState('')
+  const [isSending, setIsSending] = useState(false)
+  const [memberId, setMemberId] = useState('')
+
+  const generateMemberId = () => `NLAG${currentYear}-${Math.floor(1000 + Math.random() * 9000)}`
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -349,41 +354,47 @@ function App() {
   const handleFamilyCountChange = (event) => {
     const value = event.target.value
     const count = value === 'None' ? 0 : Number(value)
-    const nextMembers = Array.from({ length: count }, (_, index) => {
-      const existing = formData.familyMembers[index]
-      return (
-        existing || {
-          name: '',
-          email: '',
-          dob: getInitialDate(),
-          relationship: '',
-        }
-      )
-    })
+    setFormData((prev) => {
+      const nextMembers = Array.from({ length: count }, (_, index) => {
+        const existing = prev.familyMembers[index]
+        return (
+          existing || {
+            name: '',
+            email: '',
+            dob: getInitialDate(),
+            relationship: '',
+          }
+        )
+      })
 
-    setFormData((prev) => ({
-      ...prev,
-      familyCount: value,
-      familyMembers: nextMembers,
-    }))
+      return {
+        ...prev,
+        familyCount: value,
+        familyMembers: nextMembers,
+      }
+    })
   }
 
   const handleFamilyMemberChange = (index, field, value) => {
-    const updated = [...formData.familyMembers]
-    updated[index] = { ...updated[index], [field]: value }
-    setFormData((prev) => ({ ...prev, familyMembers: updated }))
+    setFormData((prev) => {
+      const updated = [...prev.familyMembers]
+      updated[index] = { ...updated[index], [field]: value }
+      return { ...prev, familyMembers: updated }
+    })
   }
 
   const handleFamilyDobChange = (index, field, value) => {
-    const updated = [...formData.familyMembers]
-    updated[index] = {
-      ...updated[index],
-      dob: {
-        ...updated[index].dob,
-        [field]: value,
-      },
-    }
-    setFormData((prev) => ({ ...prev, familyMembers: updated }))
+    setFormData((prev) => {
+      const updated = [...prev.familyMembers]
+      updated[index] = {
+        ...updated[index],
+        dob: {
+          ...updated[index].dob,
+          [field]: value,
+        },
+      }
+      return { ...prev, familyMembers: updated }
+    })
   }
 
   const isDateComplete = (dateValue) => dateValue.day && dateValue.month && dateValue.year
@@ -409,13 +420,45 @@ function App() {
     return Object.keys(nextErrors).length === 0
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     setSuccessMessage('')
+    setSubmissionError('')
+    setMemberId('')
+
     if (!validate()) {
       return
     }
-    setSuccessMessage('Thank you! Your membership form has been submitted.')
+
+    const memberId = generateMemberId()
+    const payload = {
+      ...formData,
+      memberId,
+      photo: formData.photo ? formData.photo.name : '',
+    }
+
+    setIsSending(true)
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null)
+        throw new Error(errorData?.message || 'Unable to submit registration. Please try again later.')
+      }
+
+      setMemberId(memberId)
+      setSuccessMessage(`Thank you! Your membership form has been submitted. Member ID: ${memberId}`)
+    } catch (error) {
+      setSubmissionError(error.message || 'Unable to send registration email.')
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const renderDateFields = (label, name, required = false) => (
@@ -863,9 +906,10 @@ function App() {
           </div>
         </section>
 
-        <button type="submit" className="submit-btn">
-          Submit
+        <button type="submit" className="submit-btn" disabled={isSending}>
+          {isSending ? 'Sending...' : 'Submit'}
         </button>
+        {submissionError ? <p className="error">{submissionError}</p> : null}
         {successMessage ? <p className="success">{successMessage}</p> : null}
 
         <footer className="thankyou-banner">
